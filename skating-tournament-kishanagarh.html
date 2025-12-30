@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grow Up Skating Championship 2026</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .stormy-gradient {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+        }
+        
+        .hero-section {
+            position: relative;
+            min-height: 100%;
+            overflow: hidden;
+        }
+        
+        .floating-skater {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -30px) rotate(5deg); }
+            50% { transform: translate(-20px, -60px) rotate(-5deg); }
+            75% { transform: translate(30px, -30px) rotate(3deg); }
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+        
+        .race-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .race-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .icon-bounce {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(96, 165, 250, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(96, 165, 250, 0.8); }
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #60a5fa, #3b82f6);
+            border-radius: 2px;
+            animation: expand 1s ease-out;
+        }
+        
+        @keyframes expand {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 50%, #1a202c 100%);
+        }
+        
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            border: 3px dashed #cbd5e0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .qr-placeholder:hover {
+            border-color: #60a5fa;
+            background: rgba(96, 165, 250, 0.1);
+        }
+        
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            border: 3px dashed #60a5fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(96, 165, 250, 0.5);
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 10px;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .floating-skater {
+                font-size: 40px !important;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem !important;
+            }
+            
+            .hero-section .text-3xl,
+            .hero-section .text-4xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .hero-section .text-2xl {
+                font-size: 1.25rem !important;
+            }
+            
+            .section-title {
+                font-size: 2rem !important;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .logo-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .qr-placeholder {
+                width: 160px;
+                height: 160px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 2rem !important;
+            }
+            
+            .section-title {
+                font-size: 1.75rem !important;
+            }
+            
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll-bounce 2s infinite;
+        }
+        
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 10px); }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="parallax-bg"></div>
+  <div class="content-wrapper w-full" style="background: transparent;"><!-- Hero Section -->
+   <section class="hero-section stormy-gradient text-white relative">
+    <div class="floating-skater" style="top: 10%; left: 10%; font-size: 80px;">
+     🛼
+    </div>
+    <div class="floating-skater" style="top: 60%; right: 15%; font-size: 100px; animation-delay: -5s;">
+     ⛸️
+    </div>
+    <div class="floating-skater" style="top: 30%; right: 25%; font-size: 60px; animation-delay: -10s;">
+     🏆
+    </div>
+    <div class="container mx-auto px-4 py-20 relative z-10">
+     <div class="text-center fade-in-up"><!-- Logo Section -->
+      <div class="flex justify-center mb-8">
+       <div class="logo-container"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_bzy3oMo4iAGktUPUoU199C3e5xerINT5IQ&s" alt="Grow Up Skating Academy Logo" id="academyLogo">
+       </div>
+      </div>
+      <h1 class="text-6xl md:text-7xl font-black mb-6 shimmer" id="mainTitle">GROW UP SKATING<br>
+       CHAMPIONSHIP</h1>
+      <p class="text-3xl md:text-4xl font-bold mb-4 text-blue-300" id="subtitle">2026</p>
+      <p class="text-2xl mb-8 text-gray-300">Kishangarh Roller Sports Association</p>
+      <div class="flex justify-center gap-4 md:gap-8 flex-wrap text-base md:text-xl mt-12">
+       <div class="card inline-block w-full md:w-auto"><span class="icon-bounce text-2xl md:text-3xl">📅</span>
+        <p class="font-bold mt-2" id="dateText">18 January 2026 (Sunday)</p>
+       </div>
+       <div class="card inline-block w-full md:w-auto"><span class="icon-bounce text-2xl md:text-3xl">⏰</span>
+        <p class="font-bold mt-2">8:00 AM – 1:30 PM</p>
+       </div>
+       <div class="card inline-block w-full md:w-auto"><span class="icon-bounce text-2xl md:text-3xl">📍</span>
+        <p class="font-bold mt-2" id="venueName">Venus Raghav Colony</p>
+       </div>
+      </div>
+     </div>
+     <div class="scroll-indicator text-4xl">
+      ⬇️
+     </div>
+    </div>
+   </section><!-- Key Information -->
+   <section class="py-20" style="background: linear-gradient(to bottom, #1a202c, #2d3748);">
+    <div class="container mx-auto px-4">
+     <h2 class="text-3xl md:text-5xl font-black text-center mb-8 md:mb-16 text-white section-title fade-in-up">🏁 Event Highlights</h2>
+     <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+      <div class="card fade-in-up" style="transition-delay: 0.1s;">
+       <div class="text-4xl md:text-5xl mb-4">
+        👦👧
+       </div>
+       <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-800">Age Groups</h3>
+       <p class="text-gray-600 text-lg">4 to 17 Years</p>
+       <p class="text-gray-500 mt-2">Birth Years: 2009 – 2024</p>
+      </div>
+      <div class="card fade-in-up" style="transition-delay: 0.2s;">
+       <div class="text-5xl mb-4">
+        🛼
+       </div>
+       <h3 class="text-2xl font-bold mb-3 text-gray-800">Skates Allowed</h3>
+       <ul class="text-gray-600 text-lg space-y-2">
+        <li>�� Quad Skates</li>
+        <li>✓ Inline Skates</li>
+        <li>✓ Adjustable Skates</li>
+       </ul>
+      </div>
+      <div class="card fade-in-up pulse-glow" style="transition-delay: 0.3s;">
+       <div class="text-5xl mb-4">
+        🎟
+       </div>
+       <h3 class="text-2xl font-bold mb-3 text-gray-800">Registration</h3>
+       <p class="text-gray-600 text-lg font-bold">Limited: 100 Seats Only</p>
+       <p class="text-blue-600 font-bold mt-3 text-xl">Under 4/6: ₹300</p>
+       <p class="text-blue-600 font-bold text-xl">Others: ₹400</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Race Schedule -->
+   <section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-4">
+     <h2 class="text-3xl md:text-5xl font-black text-center mb-8 md:mb-16 text-gray-800 section-title fade-in-up">🏁 Race Schedule &amp; Distance</h2>
+     <div class="max-w-4xl mx-auto space-y-4">
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-4</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2021–2024</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        100m
+       </div>
+      </div>
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-6</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2019–2020</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        300m
+       </div>
+      </div>
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-8</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2017–2018</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        300m
+       </div>
+      </div>
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-10</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2015–2016</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        600m
+       </div>
+      </div>
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-12</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2013–2014</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        600m
+       </div>
+      </div>
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-14</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2011–2012</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        900m
+       </div>
+      </div>
+      <div class="card race-item flex justify-between items-center">
+       <div>
+        <h3 class="text-lg md:text-xl font-bold text-gray-800">Under-17</h3>
+        <p class="text-sm md:text-base text-gray-600">Birth Year: 2009–2010</p>
+       </div>
+       <div class="text-2xl md:text-3xl font-black text-blue-600">
+        900m
+       </div>
+      </div>
+     </div>
+     <div class="text-center mt-12 fade-in-up">
+      <p class="text-2xl font-bold text-gray-700">Total Races: <span class="text-blue-600">28</span></p>
+      <p class="text-lg text-gray-600 mt-2">Approx. Time per Category: 40–45 minutes</p>
+     </div>
+    </div>
+   </section><!-- Fun Races -->
+   <section class="py-20" style="background: linear-gradient(to bottom, #2d3748, #1a202c);">
+    <div class="container mx-auto px-4">
+     <h2 class="text-3xl md:text-5xl font-black text-center mb-8 md:mb-16 text-white section-title fade-in-up">🎉 Fun Races (FREE Entry!)</h2>
+     <div class="grid md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+      <div class="card text-center fade-in-up">
+       <div class="text-5xl md:text-6xl mb-4">
+        👶
+       </div>
+       <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-800">Kids Race</h3>
+       <p class="text-2xl md:text-3xl font-black text-blue-600">300m</p>
+       <p class="text-gray-600 mt-3">1st Position Trophy 🏆</p>
+      </div>
+      <div class="card text-center fade-in-up" style="transition-delay: 0.1s;">
+       <div class="text-6xl mb-4">
+        👩
+       </div>
+       <h3 class="text-2xl font-bold mb-3 text-gray-800">Ladies Race</h3>
+       <p class="text-3xl font-black text-blue-600">500m</p>
+       <p class="text-gray-600 mt-3">1st Position Trophy 🏆</p>
+      </div>
+      <div class="card text-center fade-in-up" style="transition-delay: 0.2s;">
+       <div class="text-6xl mb-4">
+        👨
+       </div>
+       <h3 class="text-2xl font-bold mb-3 text-gray-800">Gents Race</h3>
+       <p class="text-3xl font-black text-blue-600">500m</p>
+       <p class="text-gray-600 mt-3">1st Position Trophy 🏆</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Awards -->
+   <section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-4">
+     <h2 class="text-3xl md:text-5xl font-black text-center mb-8 md:mb-16 text-gray-800 section-title fade-in-up">🏅 Awards &amp; Recognition</h2>
+     <div class="max-w-3xl mx-auto">
+      <div class="card text-center mb-8 fade-in-up">
+       <div class="text-5xl md:text-7xl mb-6">
+        🎖️
+       </div>
+       <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gray-800">All Participants Receive</h3>
+       <div class="flex justify-center gap-4 md:gap-8 text-lg md:text-2xl">
+        <div>
+         🥇 Medal
+        </div>
+        <div>
+         📜 Certificate
+        </div>
+       </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+       <div class="card text-center fade-in-up" style="transition-delay: 0.1s;">
+        <div class="text-6xl mb-3">
+         🥇
+        </div>
+        <h4 class="text-xl font-bold text-yellow-600">1st Position</h4>
+        <p class="text-gray-600 mt-2">Special Medal</p>
+       </div>
+       <div class="card text-center fade-in-up" style="transition-delay: 0.2s;">
+        <div class="text-6xl mb-3">
+         🥈
+        </div>
+        <h4 class="text-xl font-bold text-gray-500">2nd Position</h4>
+        <p class="text-gray-600 mt-2">Special Medal</p>
+       </div>
+       <div class="card text-center fade-in-up" style="transition-delay: 0.3s;">
+        <div class="text-6xl mb-3">
+         🥉
+        </div>
+        <h4 class="text-xl font-bold text-orange-600">3rd Position</h4>
+        <p class="text-gray-600 mt-2">Special Medal</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Registration CTA -->
+   <section class="py-20" style="background: linear-gradient(135deg, #1e3a8a, #3b82f6);">
+    <div class="container mx-auto px-4 text-center">
+     <h2 class="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 fade-in-up">📲 Register Now!</h2>
+     <p class="text-xl md:text-2xl text-blue-100 mb-6 md:mb-8 fade-in-up">Last Date: 15 January 2026</p>
+     <div class="flex justify-center mb-12 fade-in-up">
+      <div class="qr-placeholder"><img src="C:\Users\ZEBRONICS\Pictures\Saved Pictures\qr.jpg" alt="QR Code - Scan to Register" style="width: 100%; height: 100%; object-fit: contain;">
+      </div>
+     </div>
+     <p class="text-lg md:text-xl text-white mb-6 md:mb-8 fade-in-up">Scan the QR code to register online</p>
+     <div class="card inline-block fade-in-up mx-4">
+      <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-gray-800">📞 Contact for Information</h3>
+      <p class="text-lg md:text-xl text-gray-700" id="contactName">Mr. Narendra Malakar</p>
+      <p class="text-xl md:text-2xl font-bold text-blue-600 mt-2" id="contactNumber">9460767876</p>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-12 bg-gray-900 text-white text-center">
+    <div class="container mx-auto px-4">
+     <h3 class="text-2xl md:text-3xl font-bold mb-4">Organized by</h3>
+     <p class="text-lg md:text-xl mb-2">Grow Up Skating Academy</p>
+     <p class="text-base md:text-lg text-gray-400">Kishangarh Roller Sports Association</p>
+     <div class="mt-6 md:mt-8 text-gray-500 text-sm md:text-base">
+      <p>📍 Grow Up Skating Academy, Venus Raghav Colony</p>
+      <p>Near Suresh Tak Office, Kishangarh</p>
+     </div>
+     <div class="mt-6 md:mt-8 text-4xl md:text-5xl">
+      🛼 ⛸️ 🏆
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+        const defaultConfig = {
+            main_title: "GROW UP SKATING\nCHAMPIONSHIP",
+            subtitle: "2026",
+            date_text: "18 January 2026 (Sunday)",
+            venue_name: "Venus Raghav Colony",
+            contact_name: "Mr. Narendra Malakar",
+            contact_number: "9460767876"
+        };
+
+        async function onConfigChange(config) {
+            const mainTitle = config.main_title || defaultConfig.main_title;
+            const subtitle = config.subtitle || defaultConfig.subtitle;
+            const dateText = config.date_text || defaultConfig.date_text;
+            const venueName = config.venue_name || defaultConfig.venue_name;
+            const contactName = config.contact_name || defaultConfig.contact_name;
+            const contactNumber = config.contact_number || defaultConfig.contact_number;
+
+            document.getElementById('mainTitle').textContent = mainTitle;
+            document.getElementById('subtitle').textContent = subtitle;
+            document.getElementById('dateText').textContent = dateText;
+            document.getElementById('venueName').textContent = venueName;
+            document.getElementById('contactName').textContent = contactName;
+            document.getElementById('contactNumber').textContent = contactNumber;
+        }
+
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            };
+        }
+
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ["main_title", config.main_title || defaultConfig.main_title],
+                ["subtitle", config.subtitle || defaultConfig.subtitle],
+                ["date_text", config.date_text || defaultConfig.date_text],
+                ["venue_name", config.venue_name || defaultConfig.venue_name],
+                ["contact_name", config.contact_name || defaultConfig.contact_name],
+                ["contact_number", config.contact_number || defaultConfig.contact_number]
+            ]);
+        }
+
+        // Initialize Element SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in-up, .race-item');
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Parallax scroll effect
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const scrolled = window.pageYOffset;
+                        const parallaxBg = document.querySelector('.parallax-bg');
+                        if (parallaxBg) {
+                            parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b47d709414145af',t:'MTc2NjgyODI1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
